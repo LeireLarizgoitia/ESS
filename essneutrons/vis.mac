@@ -1,0 +1,373 @@
+# Macro file for the visualization setting in the initialization phase
+# of the ED example when running in interactive mode
+#
+
+# Use these open statements to open selected visualization
+#
+# Use this open statement to create an OpenGL view:
+/vis/open OGL 600x600-0+0
+#
+# Use this open statement to create an OpenInventor view:
+#/vis/open OI
+#
+# Use this open statement to create a .prim file suitable for
+# viewing in DAWN:
+#/vis/open DAWNFILE
+#
+# Use this open statement to create a .heprep file suitable for
+# viewing in HepRApp:
+#/vis/open HepRepFile
+#
+# Use this open statement to create a .wrl file suitable for
+# viewing in a VRML viewer:
+#/vis/open VRML2FILE
+#
+# Disable auto refresh and quieten vis messages whilst scene and
+# trajectories are established:
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+#
+# Draw geometry:
+/vis/drawVolume
+#
+# Specify view angle:
+/vis/viewer/set/viewpointVector -1 0 0
+/vis/viewer/set/lightsVector -1 0 0
+#
+# Specify style (surface, wireframe, auxiliary edges,...)
+/vis/viewer/set/style wireframe
+/vis/viewer/set/auxiliaryEdge true
+/vis/viewer/set/lineSegmentsPerCircle 100
+#
+# Draw smooth trajectories at end of event, showing trajectory points
+# as markers 2 pixels wide:
+/vis/scene/add/trajectories smooth
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 2
+# (if too many tracks cause core dump => /tracking/storeTrajectory 0)
+#
+# Draw hits at end of event:
+#/vis/scene/add/hits
+#
+# To draw only gammas:
+#/vis/filtering/trajectories/create/particleFilter
+#/vis/filtering/trajectories/particleFilter-0/add gamma
+#
+# To invert the above, drawing all particles except gammas,
+# keep the above two lines but also add:
+#/vis/filtering/trajectories/particleFilter-0/invert true
+#
+# Many other options are available with /vis/modeling and /vis/filtering.
+# For example, to select colour by particle ID:
+#/vis/modeling/trajectories/create/drawByParticleID
+#/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+# To select or override default colours (note: e+ is blue by default):
+#/vis/modeling/trajectories/list
+#/vis/modeling/trajectories/drawByParticleID-0/set e+ yellow
+#
+# To superimpose all of the events from a given run:
+/vis/scene/endOfEventAction accumulate
+#
+# Decorations
+# Name
+/vis/set/textColour green
+/vis/set/textLayout right
+/vis/scene/add/text2D 0.9 -.9 24 ! ! exampleED
+# or, if your system does not support right-adjustment
+/vis/set/textLayout    # Revert to normal (left adjusted) layout
+/vis/set/textColour    # Revert to default text colour (blue)
+#
+# Axes, scale, etc.
+#/vis/scene/add/scale   # Simple scale line
+#/vis/scene/add/axes    # Simple axes: x=red, y=green, z=blue.
+/vis/scene/add/eventID # Drawn at end of event
+#/vis/scene/add/date    # Date stamp
+#/vis/scene/add/logo2D  # Simple logo
+#/vis/scene/add/logo    # 3D logo
+# Frame
+/vis/set/colour red
+/vis/set/lineWidth 2
+/vis/scene/add/frame   # Simple frame around the view
+/vis/set/colour        # Revert to default colour (white)
+/vis/set/lineWidth     # Revert to default line width (1.)
+
+# To get nice view
+/vis/geometry/set/visibility WorldLV 0 false
+#/vis/geometry/set/colour Target 0 0 0 1 .3
+/vis/viewer/set/style surface
+/vis/viewer/set/hiddenMarker true
+/vis/viewer/set/viewpointThetaPhi -90 0 deg
+#
+# Re-establish auto refreshing and verbosity:
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings
+#
+# For file-based drivers, use this to create an empty detector view:
+#/vis/viewer/flush
+### depth red green blue opaque
+# Target grey
+/vis/geometry/set/colour TrLV 0 0.50 0.50 0.50 1
+# pores in the target
+/vis/geometry/set/colour Tr_HLV 0 1 0 0 1
+#upper first clad
+/vis/geometry/set/colour UTrCLV 0 0.50 0 0   1
+#upper second clad pink!
+/vis/geometry/set/colour UTrC2LV 0 0.9 0.8  0.6 1
+# upper third clad red
+/vis/geometry/set/colour UTrC3LV 0 1 0  0.0 1
+# upper first aluminum try green
+/vis/geometry/set/colour UTrAl4LV 0   0   1  0.0 1
+#first water
+/vis/geometry/set/colour UTrWLV 0   0   0    1 1
+# water clad of Al green
+/vis/geometry/set/colour UWAl5LV 0   0   1  0.0 1
+# water upper clad red
+/vis/geometry/set/colour UWC6LV 0   1   0  0.0 1
+# three part of aluminum green cell 77 947
+/vis/geometry/set/colour UWAl7LV 0   0  1  0.0 1
+# water around the three green parts blue
+/vis/geometry/set/colour UW8LV 0   0   0  1 1
+# moderator alominum  clad green
+/vis/geometry/set/colour  MdAl9LV 0   0   1  0 1
+# water around moderator blue cell 963
+#########################/vis/geometry/set/colour  MdW10DLV 0   1   0 0 1
+# cell 96
+#########################/vis/geometry/set/colour  MdW10ULV 0   1   0 0 1
+# Al over water around moderator green cell 964 968
+/vis/geometry/set/colour MdAl11LV 0   0   1  0.0 1
+#extraction beams thickness left green
+/vis/geometry/set/colour ExtBS1_ThickLV 0   0   1  0 1
+#extraction beams thickness right green
+/vis/geometry/set/colour ExtBS2_ThickLV 0   0   1  0 1
+#extraction beams inside bello!
+#/vis/geometry/set/colour ExtBS1_InsideLV 0   1  1 1 1
+#/vis/geometry/set/colour ExtBS1_InsideLV 0   1  1 1 1
+#water around the beams blue
+
+##########################/vis/geometry/set/colour  UW8STLV 0   0   0 1 1
+###########################/vis/geometry/set/colour  ExtSLLV 0   1   0 0 1
+#cold moderator clad blue
+/vis/geometry/set/colour  MdCdLV 0   0.5   0 1 1
+#cold moderator red
+/vis/geometry/set/colour  MdLV 0   1  0.4 0 1
+#water remains of cell 969 and cell 967
+###################################/vis/geometry/set/colour WU12LV 0   1   0 0 1
+#water last remains of cell 969 and cell 967
+/vis/geometry/set/colour WU13LV 0   0   0 1 1
+# Be reflector
+/vis/geometry/set/colour RefLV 0   0.8   0.0 1 1
+# Shield
+/vis/geometry/set/colour ShLV 0   1   0.5 0 1
+######## det
+/vis/geometry/set/colour det1LV 0   0   0.5 0.5 1
+/vis/geometry/set/colour det2LV 0   0   0.5 0.5 1
+
+####################################
+## stainless steel shield
+/vis/geometry/set/colour SteelShieldLV 0 0 0 1 1
+
+###################################
+# VISIBILITY
+
+# ------------------------------------------
+# ADDED BY LEIRE
+# colour [logical-volume-name] [depth] [red] [green] [blue] [opacity]
+# Pink 0 0.996109 0.750011 0.792981 1
+# Magenta 0 1 0 1 1 // Mangadense8
+#
+# Green 0 0 1 0 1 Concrete
+# Yellow 0 1 1 0 1 Vacuum
+# Red 0 1 0 0 1 SS316L
+# Cyan 0 0 1 1 1 Standard grade carbon steel AISI 1005
+# Brown 0 0.7 0.4 0.1 1 Air
+# White 0 1 1 1 1 Concrete regular + 50%Fe
+# ------------------------------------------
+
+
+####################################
+# INSTALLATION BASE
+/vis/geometry/set/colour WaterBase_LV 0 0 0 1 1
+/vis/geometry/set/visibility WaterBase_LV 0 0
+
+/vis/geometry/set/colour BaseConc_LV 0 0 1 0 1
+/vis/geometry/set/visibility BaseConc_LV 0 0
+
+/vis/geometry/set/colour GroundFloor_LV 0 0 1 0 1
+/vis/geometry/set/visibility GroundFloor_LV 0 0
+
+
+####################################
+# BUNKER
+/vis/geometry/set/colour Bunk_LV 0 1 0 1 1
+/vis/geometry/set/visibility Bunk_LV 0 0
+
+/vis/geometry/set/colour BunkInConc_LV 0 0 1 1 1
+/vis/geometry/set/visibility BunkInConc_LV 0 0
+
+/vis/geometry/set/colour BunkInAir_LV 0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility BunkInAir_LV 0 0
+
+
+####################################
+# CONCRETE SHIELDING
+/vis/geometry/set/colour CSh_LV  0 0 1 0 1
+/vis/geometry/set/visibility CSh_LV 0 0
+
+/vis/geometry/set/colour ConcreteShield_LV  0 0 1 0 1
+/vis/geometry/set/visibility ConcreteShield_LV 0 0
+
+/vis/geometry/set/colour ConcCurve_LV 0 0 1 0 1
+/vis/geometry/set/visibility ConcCurve_LV 0 0
+
+
+####################################
+# AIR GAP
+/vis/geometry/set/colour AirGapRoof_LV  0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility AirGapRoof_LV 0 0
+
+/vis/geometry/set/colour TrShTopAir_LV  0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility TrShTopAir_LV 0 0
+
+/vis/geometry/set/colour AirGapDown_LV  0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility AirGapDown_LV 0 0
+
+/vis/geometry/set/colour AirCurve_LV 0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility AirCurve_LV 0 0
+
+####################################
+
+# OUTER SHIELDING
+
+/vis/geometry/set/colour OTrSh_LV 0 0 1 1 1
+/vis/geometry/set/visibility OTrSh_LV 0 0
+
+/vis/geometry/set/colour OTrShSS_LV 0 1 0 0 1
+/vis/geometry/set/visibility OTrShSS_LV 0 0
+
+
+####################################
+# TARGET SHIELDING
+/vis/geometry/set/colour TrShConc_LV  0 1 1 1 1
+/vis/geometry/set/visibility TrShConc_LV 0 0
+
+/vis/geometry/set/colour TrSh2_LV 0 1 0 0 1
+/vis/geometry/set/visibility TrSh2_LV 0 0
+
+/vis/geometry/set/colour TrSh1_LV 0 1 0 0 1
+/vis/geometry/set/visibility TrSh1_LV 0 0
+
+/vis/geometry/set/colour TrShVac_LV 0 1 1 0 1
+/vis/geometry/set/visibility TrShVac_LV 0 0
+
+/vis/geometry/set/colour TrShCarbon_LV 0 0 1 1 1
+/vis/geometry/set/visibility TrShCarbon_LV 0 0
+
+/vis/geometry/set/colour TrShSSTop_LV 0 1 0 0 1
+/vis/geometry/set/visibility TrShSSTop_LV 0 0
+
+/vis/geometry/set/colour TrShVacTop_LV 0 1 1 0 1
+/vis/geometry/set/visibility TrShVacTop_LV 0 0
+
+/vis/geometry/set/colour TrShDomeSS_LV 0 1 0 0 1
+/vis/geometry/set/visibility TrShDomeSS_LV 0 0
+
+/vis/geometry/set/colour TrShDomeVac_LV 0 1 1 0 1
+/vis/geometry/set/visibility TrShDomeVac_LV 0 0
+
+
+####################################
+# TARGET TUBE
+
+/vis/geometry/set/colour TrTubeBe_LV 0 0 0 1 1
+/vis/geometry/set/visibility TrTubeBe_LV 0 0
+
+/vis/geometry/set/colour TrSurVac_LV 0 1 1 0 1
+#/vis/geometry/set/visibility TrSurVac_LV 0 0
+
+/vis/geometry/set/colour TrSur_LV 0 1 0 0 1
+/vis/geometry/set/visibility TrSur_LV 0 0
+
+
+####################################
+# ROOMS
+/vis/geometry/set/colour TLeftLV  0 0 1 0 1
+/vis/geometry/set/visibility TLeftLV 0 0
+
+/vis/geometry/set/colour InTLeftLV  0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility InTLeftLV 0 0
+
+/vis/geometry/set/colour TRightBTLV  0 0 1 0 1
+/vis/geometry/set/visibility TRightBTLV 0 0
+
+/vis/geometry/set/colour InTRightLV 0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility InTRightLV 0 0
+
+/vis/geometry/set/colour TRightG_LV  0 0 1 0 1
+/vis/geometry/set/visibility TRightG_LV 0 0
+
+/vis/geometry/set/colour InTRightM8_LV 0 1 0 1 1
+/vis/geometry/set/visibility InTRightM8_LV 0 0
+
+/vis/geometry/set/colour TRightAirGap_LV 0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility TRightAirGap_LV 0 0
+
+/vis/geometry/set/colour TRightCarbonGap_LV 0 0 1 1 1
+/vis/geometry/set/visibility TRightCarbonGap_LV 0 0
+
+/vis/geometry/set/colour TRightConcGap_LV 0 0 1 0 1
+/vis/geometry/set/visibility TRightConcGap_LV 0 0
+
+/vis/geometry/set/colour TAirLV 0 0.7 0.4 0.1 1
+/vis/geometry/set/visibility TAirLV 0 0
+
+####################################
+# BEAM TUBE
+/vis/geometry/set/colour BeamTubeVac_LV 0 1 1 0 1
+/vis/geometry/set/visibility BeamTubeVac_LV 0 0
+
+/vis/geometry/set/colour BeamTubeSS_LV 0 1 0 0 1
+/vis/geometry/set/visibility BeamTubeSS_LV 0 0
+
+/vis/geometry/set/colour BeamTubeAir_LV 0 0.7 0.4 0.1 1
+#/vis/geometry/set/visibility BeamTubeAir_LV 0 0
+
+/vis/geometry/set/colour BeamTubeVacCS_LV 0 1 1 0 1
+#/vis/geometry/set/visibility BeamTubeVacCS_LV 0 0
+
+/vis/geometry/set/colour BeamTubeVacSS_LV 0 1 1 0 1
+/vis/geometry/set/visibility BeamTubeVacSS_LV 0 0
+
+####################################
+#TARGET VACUUM POCKET
+
+/vis/geometry/set/colour TrVacPocket_LV 0 1 1 0 1
+/vis/geometry/set/visibility TrVacPocket_LV 0 0
+
+/vis/geometry/set/colour TrVacPocketWedge_LV 0 1 1 0 1
+/vis/geometry/set/visibility TrVacPocketWedge_LV 0 0
+
+/vis/geometry/set/visibility TrVacPocketplane_LV 0 0
+
+####################################
+#REFLECTOR
+
+/vis/geometry/set/colour RefBe_LV 0 0 0 1 1
+/vis/geometry/set/visibility RefBe_LV 0 0
+
+
+/vis/geometry/set/colour RefVac_LV 0 1 1 0 1
+/vis/geometry/set/visibility RefVac_LV 0 0
+
+####################################
+#HALL
+
+/vis/geometry/set/colour HallWallLV_1 0 0 1 0 1
+/vis/geometry/set/colour HallWallLV_2 0 0 1 0 1
+#/vis/geometry/set/visibility HallWallLV_1 0 0
+#/vis/geometry/set/visibility HallWallLV_2 0 0
+
+/vis/geometry/set/colour HallLV_1 0 0.7 0.4 0.1 1
+/vis/geometry/set/colour HallLV_2 0 0.7 0.4 0.1 1
+#/vis/geometry/set/visibility HallLV_1 0 0
+#/vis/geometry/set/visibility HallLV_2 0 0

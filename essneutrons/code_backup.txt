@@ -1,4 +1,0 @@
-if (posIn.getZ()/cm>4.01 or posIn.getZ()/cm<-4.01){
-  outFlx<<partIn<< G4endl;
-  outFlx<<posIn/cm<< " " << posOut/cm << G4endl;
-}
